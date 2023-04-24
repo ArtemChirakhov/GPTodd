@@ -1,17 +1,20 @@
 import discord
+from discord.ext import commands
 import os
 from dotenv import load_dotenv
 from chatgpt import chatgpt_response
+
 
 load_dotenv()
 
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-class Client_bot(discord.Client):
-    async def on_ready(self):
-        print(f'{self.user} has connected to Discord!')
-
-    async def on_message(self, message):
+class Client_bot(commands.Cog):
+    @commands.command(name="ai")
+    async def ai(self, message):
+        bot_response = chatgpt_response(prompt=message)
+        await message.channel.send(f'{bot_response}')
+'''    async def on_message(self, message):
         print(message.content)
         if message.author == self.user:
             return
@@ -23,9 +26,4 @@ class Client_bot(discord.Client):
 
         if command == '/ai' or command == '/bot':
             bot_response = chatgpt_response(prompt=user_message)
-            await message.channel.send(f'{bot_response}')
-
-intents = discord.Intents.default()
-intents.message_content = True
-
-client = Client_bot(intents=intents)
+            await message.channel.send(f'{bot_response}')'''

@@ -3,11 +3,11 @@ import youtube_dl
 from discord.ext import commands
 
 
-class music(commands.Cog):
+class Music(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(name="join")
     async def join(self, ctx):
         if ctx.author.voice is None:
             await ctx.send("You are not in a voice channel")
@@ -17,11 +17,11 @@ class music(commands.Cog):
         else:
             await  ctx.voice_client.move_to(voice_channel)
 
-    @commands.command()
+    @commands.command(name="disconnect")
     async def disconnect(self, ctx):
         await ctx.voice_client.disconnect()
 
-    @commands.command()
+    @commands.command(name="play")
     async def play(self, ctx, url):
         ctx.voice_client.stop()
         FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
@@ -35,17 +35,12 @@ class music(commands.Cog):
             source = await discord.FFmpegOpusAudio.from_probe(url2, **FFMPEG_OPTIONS)
             vc.play(source)
 
-    @commands.command()
+    @commands.command(name="pause")
     async def pause(self, ctx):
         await ctx.voice_client.pause()
         await ctx.send("audio paused")
 
-    @commands.command()
+    @commands.command(name="resume")
     async def resume(self, ctx):
         await ctx.voice_client.resume()
         await ctx.send("audio resumed")
-
-
-
-def setup(client):
-    client.add_cog(music(client))
