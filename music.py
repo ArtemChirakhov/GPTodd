@@ -20,7 +20,7 @@ class Music(commands.Cog):
                 info = ydl.extract_info("ytsearch:%s" % item, download=False)['entries'][0]
             except Exception:
                 return False
-        return {'source': info['formats'][0]['url'], 'title': info['title']}
+        return {'source': info['formats'][8]['url'], 'title': info['title']}
 
     def play_next(self):
         if len(self.music_queue) > 0:
@@ -44,9 +44,7 @@ class Music(commands.Cog):
                 await self.vc.move_to(self.music_queue[0][1])
 
             self.music_queue.pop(0)
-            print(123)
             self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next())
-            print(2)
         else:
             self.is_playing = False
 
@@ -70,7 +68,6 @@ class Music(commands.Cog):
 
                 if self.is_playing == False:
                     await self.play_music(ctx)
-                    print(1)
 
     @commands.command(name="pause", help="Pauses the current song being played")
     async def pause(self, ctx, *args):
