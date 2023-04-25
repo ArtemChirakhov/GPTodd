@@ -9,18 +9,18 @@ openai.api_key = os.getenv('CHATGPT_APIKEY')
 
 def add_json(data):
     with open("log.json", mode="r") as file:
-        messages = json.load(file)
-    messages.append(data)
+        messeges = json.load(file)
+    messeges.append(data)
     with open("log.json", mode="w") as file:
-        json.dump(messages, file)
+        json.dump(messeges, file)
 
 def chatgpt_response(prompt):
     add_json({"role": "user", "content": prompt})
     with open("log.json", mode="r") as file:
-        json_messages = json.load(file)
+        json_messeges = json.load(file)
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        messages=json_messages,
+        messages=json_messeges,
         temperature=0.5,
         max_tokens=100
         )
