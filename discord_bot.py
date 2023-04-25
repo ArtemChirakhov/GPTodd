@@ -10,10 +10,10 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 class Client_bot(commands.Cog):
-    @commands.command(name="ai")
-    async def ai(self, message):
+    @commands.command()
+    async def ai(self, ctx, message):
         bot_response = chatgpt_response(prompt=message)
-        await message.channel.send(f'{bot_response}')
+        await ctx.send(bot_response)
 '''    async def on_message(self, message):
         print(message.content)
         if message.author == self.user:

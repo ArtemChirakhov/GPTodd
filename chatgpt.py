@@ -21,9 +21,11 @@ def chatgpt_response(prompt):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=json_messages,
-        temperature=1,
-        max_tokens=300
+        temperature=0.5,
+        max_tokens=100
         )
+    print(response)
     prompt_response = response['choices'][0]['message']['content']
+    print(prompt_response)
     add_json(response['choices'][0]['message'])
     return prompt_response

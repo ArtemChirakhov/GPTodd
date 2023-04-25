@@ -7,21 +7,29 @@ class Music(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(name="join")
+    @commands.command()
     async def join(self, ctx):
+        print(1)
         if ctx.author.voice is None:
             await ctx.send("You are not in a voice channel")
+        print(2)
         voice_channel = ctx.author.voice.channel
+        print(3)
+        print(voice_channel)
         if ctx.voice_client is None:
-            await voice_channel.connect
+            print(4)
+            await voice_channel.connect()
+            print(5)
         else:
+            print(6)
             await  ctx.voice_client.move_to(voice_channel)
+            print(7)
 
-    @commands.command(name="disconnect")
+    @commands.command()
     async def disconnect(self, ctx):
         await ctx.voice_client.disconnect()
 
-    @commands.command(name="play")
+    @commands.command()
     async def play(self, ctx, url):
         ctx.voice_client.stop()
         FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
@@ -35,12 +43,12 @@ class Music(commands.Cog):
             source = await discord.FFmpegOpusAudio.from_probe(url2, **FFMPEG_OPTIONS)
             vc.play(source)
 
-    @commands.command(name="pause")
+    @commands.command()
     async def pause(self, ctx):
         await ctx.voice_client.pause()
         await ctx.send("audio paused")
 
-    @commands.command(name="resume")
+    @commands.command()
     async def resume(self, ctx):
         await ctx.voice_client.resume()
         await ctx.send("audio resumed")
