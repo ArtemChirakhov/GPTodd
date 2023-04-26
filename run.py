@@ -11,7 +11,7 @@ async def main():
         myzip.extractall(path=None, members=None, pwd=None)
     intents = discord.Intents.default()
     intents.message_content = True
-    bot = commands.Bot(command_prefix='/', intents=intents)
+    bot = commands.Bot(command_prefix='!', intents=intents)
     await bot.add_cog(Client_bot(bot))
     await bot.add_cog(Music(bot))
     await bot.start(TOKEN)
