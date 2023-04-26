@@ -1,11 +1,9 @@
 import openai
 import os
 import json
-from dotenv import load_dotenv
 
-load_dotenv()
 
-openai.api_key = os.getenv('CHATGPT_APIKEY')
+openai.api_key = input('Enter ChatGPT API Key')
 
 def add_json(data):
     with open("log.json", mode="r") as file:
