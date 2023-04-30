@@ -22,8 +22,6 @@ def chatgpt_response(prompt):
         temperature=0.5,
         max_tokens=100
         )
-    print(response)
     prompt_response = response['choices'][0]['message']['content']
-    print(prompt_response)
     add_json(response['choices'][0]['message'])
     return prompt_response

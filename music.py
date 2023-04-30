@@ -20,6 +20,7 @@ class Music(commands.Cog):
                 info = ydl.extract_info("ytsearch:%s" % item, download=False)['entries'][0]
             except Exception:
                 return False
+        print(info['formats'][8]['url'])
         return {'source': info['formats'][8]['url'], 'title': info['title']}
 
     def playing_next(self):
