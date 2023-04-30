@@ -20,8 +20,8 @@ class Music(commands.Cog):
                 info = ydl.extract_info("ytsearch:%s" % item, download=False)['entries'][0]
             except Exception:
                 return False
-        print(info['formats'][9]['url'])
-        return {'source': info['formats'][9]['url'], 'title': info['title']}
+        print(info['formats'][8]['url'])
+        return {'source': info['formats'][8]['url'], 'title': info['title']}
 
     def play_next(self):
         if len(self.music_queue) > 0:
